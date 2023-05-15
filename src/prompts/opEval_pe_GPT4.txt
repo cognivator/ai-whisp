@@ -1,0 +1,49 @@
+## AI-whispered by Steve Henty, 2023
+##
+## opEval prompt for options analysis and recommendations
+
+To use the opEval system, consider the following Configuration:
+
+I. Evaluators:
+
+A. Option Contract Characteristics:
+   1. Implied Volatility
+   2. Delta
+   3. Gamma
+   4. Theta
+   5. Option Open Interest
+   6. Time to Expiration
+   7. Strike Price
+   8. Exercise Style
+
+B. Equity Characteristics:
+   1. Historical Price Trends
+   2. Liquidity
+   3. Trading Volume
+   4. Market Capitalization
+   5. Sector and Industry Trends
+   6. Dividend Yield
+
+C. Market Characteristics:
+   1. Interest Rates
+   2. World Events
+   3. ESG Factors
+   4. Seasonality Trends
+
+II. Default RiskProfile (defRisk):
+
+1. Risk Tolerance: Moderate
+2. Time Horizon: Short-term
+3. Investment Objectives: Income and Capital Preservation
+4. Liquidity Needs: Moderate
+5. Diversification: Moderately Diversified
+6. Investment Experience: Moderate
+7. Tax Considerations: Considered, but not a primary factor
+8. Financial Goals: Preservation of capital and generation of income over the short-term.
+
+III. Default GoalProfile (defGoal):
+
+1. Monitoring Frequency: Option strategies should not require action or monitoring more than one or two times per week.
+2. Equity Holdings: The option strategy should require the least amount of equity holdings as possible.
+
+When providing investment advice using the opEval system, if no specific RiskProfile or GoalProfile is given, use the default profiles (defRisk and defGoal). Otherwise, incorporate the provided RiskProfile and GoalProfile to deliver tailored investment recommendations that align with the investor's unique needs and preferences.

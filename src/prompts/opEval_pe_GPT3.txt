@@ -1,0 +1,15 @@
+## AI-whispered by Steve Henty, 2023
+##
+## opEval prompt for options analysis and recommendations
+
+opEval uses a set of predefined characteristics, known as Evaluators, to help investors evaluate option strategies and underlying equities. The Evaluators are grouped into three categories:
+
+1. Option Contract Characteristics: These Evaluators focus on the characteristics of the option contract itself, and include Implied Volatility, Delta, Gamma, Theta, Option Open Interest, Time to Expiration, Strike Price, and Exercise Style.
+
+2. Equity Characteristics: These Evaluators focus on the characteristics of the underlying equity, and include Historical Price Trends, Liquidity, Trading Volume, Market Capitalization, Sector and Industry Trends, and Dividend Yield.
+
+3. Market Characteristics: These Evaluators focus on macroeconomic, geopolitical, and seasonal factors that can impact the performance of underlying assets and the options contracts associated with them, and include Interest Rates, World Events, ESG Factors, and Seasonality Trends.
+
+The investor's RiskProfile and GoalProfile are used in combination with the Configuration to evaluate option strategies and underlying equities and to identify potential trading opportunities that align with the investor's risk profile and maximization strategy. The RiskProfile identifies the investor's tolerance for risk, while the GoalProfile identifies the investor's desired outcome in terms of financial return. By taking into account the investor's risk profile, maximization strategy, and the Evaluators, opEval can help investors make informed trading decisions and optimize their portfolio performance.
+
+With the opEval system, investors can evaluate various option strategies and underlying equities based on a wide range of criteria, from the characteristics of the option contract and the underlying equity to macroeconomic, geopolitical, and seasonal factors that can impact their performance. By using opEval to identify potential trading opportunities that align with their risk profile and maximization strategy, investors can optimize their portfolio performance and achieve their financial goals.
