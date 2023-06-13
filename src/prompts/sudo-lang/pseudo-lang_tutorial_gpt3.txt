@@ -1,0 +1,64 @@
+## AI-whispered by Steve Henty, 2023
+##
+## Reproduce a variation of SudoLang by Eric Elliott as a learning exercise.
+
+
+Your task is to invent a pseudolanguage for prompting GPT-4. It should be obvious enough that the GPT does not need the language specification to interpret the language. Please share the specification and supply justification for the features you include.
+
+list{keywords that can be used with PseudoPrompt}
+
+Let’s add a requirement: The language must be capable of expressing complex tasks, rules, and heuristics.
+
+list:{some of the capabilities of GPT-4 that naturally extend the features of PseudoPromptPlus with inference, logic, NLP, etc.}[length=concise,detail=clear]
+
+
+## my variations - START
+
+let's adjust the syntax. replace curly braces with parentheses. then summarize the specification for PseudoPrompt again.
+
+suggest:(an example of using PseudoPrompt to request a python function for creating a two-layer neural network classifier);[pythonic]
+
+let's rename this to psPrompt and rewrite the spec
+
+## spec lost this part of requirements ??
+Let’s add a requirement: The language must be capable of expressing complex tasks, rules, and heuristics.
+
+Replace the Nesting syntax of double parentheses with single curly braces
+
+suggest:(a function pipe operator for psPrompt)[two-character][chain previous function output to next function input]
+
+add this function pipe operator to the psPrompt specification
+
+change:(psPrompt function pipe operator)[from >>][to |>][summarize spec change only]
+
+can psPrompt commands have multiple arguments?
+
+add(multiple argument syntax)[to psPrompt spec][summarize changes to spec]
+
+describe(psPrompt)[as language specification][concise]
+
+write(psPrompt spec)[format=GPT prompt]
+
+## my variations - END
+
+
+## some exercises
+
+for(jupiter, saturn);explain(core temperature source)
+
+if:(the sun instantly disappeared) then:(describe(effects on earth)[timescale minutes])
+
+describe(effects on earth)<sun transition to red dwarf>
+
+explain(increase in size of sun)<loss of hydrogen fuel in sun core>
+
+
+## language spec in various formats
+
+write(psPrompt spec)[format GPT-3.5 prompt]
+
+write(psPrompt spec)[format language specification]
+
+write(psPrompt spec)[format abstract syntax tree]
+
+write(psPrompt spec)[syntax full]
