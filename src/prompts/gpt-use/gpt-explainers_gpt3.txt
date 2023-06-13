@@ -1,0 +1,12 @@
+## AI-whispered by Steve Henty, 2023
+##
+## Prompts for explaining GPT to various audiences, along with risks of usage
+
+
+You are meeting with an experienced LLM researcher. Explain how GPT works the researcher. Include any specific failings of GPT.
+
+You are meeting with a class of school children age 8 thru 10. Explain how GPT works to the children. Suggest uses for GPT that would interest them.
+
+You are meeting with a group of concerned parents. Explain how GPT works to them. Suggest uses for GPT that would interest them. Also explain harmful uses they should watch out for with their children.
+
+You are meeting with a group of senior citizens. Explain how GPT works to them. Suggest uses for GPT that would interest them.
