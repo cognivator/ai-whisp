@@ -1,0 +1,106 @@
+## Project spec
+State:
+  projects:
+    - name: CompostMonitor
+      goals:
+        - Measure temperature and moisture levels
+        - Alert when measured levels are outside the ideal range
+      constraints:
+        - Solar powered
+        - Connected to WiFi
+        - Measurements taken on demand, and at an interval that optimizes energy use and levels variability
+        - Report levels via WiFi at time of measurement
+        - Store levels locally if WiFi report fails
+        - Send and clear all stored reports when WiFi reporting becomes available
+  role: PM
+
+## Initial Design
+State:
+  projects:
+    - name: CompostMonitor
+      goals:
+        - Measure temperature and moisture levels
+        - Alert when measured levels are outside the ideal range
+      constraints:
+        - Solar powered
+        - Connected to WiFi
+        - Measurements taken on demand, and at an interval that optimizes energy use and levels variability
+        - Report levels via WiFi at time of measurement
+        - Store levels locally if WiFi report fails
+        - Send and clear all stored reports when WiFi reporting becomes available
+        - Sensors will be placed in a 24-36in. probe, with the primary boards and other components in a housing at the other end of the probe
+        - Probe diameter should be as small as possible, but no smaller than 1/4in
+        - Component housing and probe must survive and protect the components in all kinds of weather, and all climates
+      boards:
+        - Arduino Nano 33 IoT
+      components:
+        - DS18B20 Temperature Sensor
+        - Capacitive Soil Moisture Sensor v1.2
+        - Solar Power Module
+        - MicroSD Card Breakout Board
+      schematic:
+        - Diagram and instructions for wiring and assembly
+  role: Tech
+
+## Update to use FRAM
+State:
+  projects:
+    - name: CompostMonitor
+      goals:
+        - Measure temperature and moisture levels
+        - Alert when measured levels are outside the ideal range
+      constraints:
+        - Solar powered
+        - Connected to WiFi
+        - Measurements taken on demand, and at an interval that optimizes energy use and levels variability
+        - Report levels via WiFi at time of measurement
+        - Store levels locally if WiFi report fails
+        - Send and clear all stored reports when WiFi reporting becomes available
+        - Sensors will be placed in a 24-36in. probe, with the primary boards and other components in a housing at the other end of the probe
+        - Probe diameter should be as small as possible, but no smaller than 1/4in
+        - Component housing and probe must survive and protect the components in all kinds of weather, and all climates
+        - Prefer FRAM for local storage
+      boards:
+        - Arduino Nano 33 IoT
+      components:
+        - DS18B20 Temperature Sensor
+        - Capacitive Soil Moisture Sensor v1.2
+        - Solar Power Module
+        - Adafruit I2C Non-Volatile FRAM Breakout
+      schematic:
+        - Diagram and instructions for wiring and assembly, including connections for FRAM Breakout
+  role: PM
+
+
+## update schematic property to wireup
+State:
+  projects:
+    - name: CompostMonitor
+      goals:
+        - Measure temperature and moisture levels
+        - Alert when measured levels are outside the ideal range
+      constraints:
+        - Solar powered
+        - Connected to WiFi
+        - Measurements taken on demand, and at an interval that optimizes energy use and levels variability
+        - Report levels via WiFi at time of measurement
+        - Store levels locally if WiFi report fails
+        - Send and clear all stored reports when WiFi reporting becomes available
+        - Sensors will be placed in a 24-36in. probe, with the primary boards and other components in a housing at the other end of the probe
+        - Probe diameter should be as small as possible, but no smaller than 1/4in
+        - Component housing and probe must survive and protect the components in all kinds of weather, and all climates
+        - Prefer FRAM for local storage
+        - Prefer IoT data stores hosted locally on a Synology NAS
+        - Allow data store to be changed with minimal changes to connection code
+      boards:
+        - Arduino Nano 33 IoT
+      components:
+        - DS18B20 Temperature Sensor
+        - Capacitive Soil Moisture Sensor v1.2
+        - Solar Power Module
+        - Adafruit I2C Non-Volatile FRAM Breakout
+      wireup steps:
+        - (These will be populated when the wireup is defined)
+      codes:
+        - Basic Arduino sketch to handle data collection, local storage and reporting to IoT data stores
+  role: Tech
