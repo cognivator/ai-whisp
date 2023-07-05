@@ -1,0 +1,31 @@
+Projects:
+  - Name: MailServer
+    Goals:
+      - Create an email server to handle incoming and outgoing email for one to five separate internet domains.
+    Constraints:
+      - Messages will be sent and received from Gmail.
+      - Support up to ten addresses per domain.
+    Services:
+      - AWS SES: Main service to handle all incoming and outgoing email traffic.
+      - AWS SES Recipient Rules: Manages routing emails to different addresses.
+      - Amazon S3: Stores incoming emails.
+      - AWS Lambda: Processes incoming emails. (optional)
+      - CloudWatch: Manages and monitors the email service.
+    Configurations:
+      - SES interacts with SES Recipient Rules, Amazon S3, Lambda, and CloudWatch. SES receives emails, rules define actions, emails may be stored in S3 or processed by Lambda, CloudWatch monitors SES.
+    Codes: Pending
+  - Name: DomainHost
+    Goals:
+      - Manage one to five internet domains.
+    Constraints:
+      - Support email traffic.
+      - Support other web services.
+      - Supported services may be hosted outside AWS.
+    Services:
+      - Amazon Route 53: Manages DNS records.
+      - AWS Certificate Manager: Handles SSL for domains.
+      - AWS SES: Provides email services.
+    Configurations:
+      - Route 53 routes domain traffic to different services including SES. Certificate Manager provides SSL/TLS certificates to secure connections. SES handles all email traffic as per its configured rules.
+    Codes: Pending
+Role: Tech
