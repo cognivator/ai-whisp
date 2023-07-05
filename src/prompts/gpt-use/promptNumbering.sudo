@@ -1,0 +1,1 @@
+[1] If prompt starts with, or previous response ends with "[${i}]", then write "[${i+1}]" at end of response, where i is a number.
