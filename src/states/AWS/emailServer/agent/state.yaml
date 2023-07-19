@@ -1,0 +1,25 @@
+project:
+  constraints:
+  - support multiple email addresses per domain
+  - support message encryption in transit and at rest
+  - control spam and malware
+  - primary email client is GMail
+  - additional email clients are iOS iPhone and iPad, MacOS Macbook Pro
+  - support incoming and outgoing mail to external mail clients
+  - assume AWS Route53 and ACM are already configured to host the domain
+  - assume CloudFormation is already in use to manage domain hosting
+  goals:
+  - Host an email server that can support non-AWS email clients.
+  name: EmailServer
+solution:
+  codes: []
+  components:
+  - SES CloudFormation Template
+  - Lambda CloudFormation Template
+  - Gmail Configuration Guide
+  - iOS Configuration Guide
+  - MacOS Configuration Guide
+  services:
+  - Amazon Simple Email Service (SES)
+  - AWS Key Management Service (KMS)
+  - AWS Lambda

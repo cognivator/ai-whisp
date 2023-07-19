@@ -1,0 +1,42 @@
+
+Resources:
+  MyBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              KMSMasterKeyID: !GetAtt 'MyKey.Arn'
+              SSEAlgorithm: aws:kms
+  MyKey:
+    Type: 'AWS::KMS::Key'
+    Properties:
+      KeyPolicy:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: Enable IAM User Permissions
+            Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action: 'kms:*'
+            Resource: '*'
+  MySESRuleSet:
+    Type: 'AWS::SES::ReceiptRuleSet'
+    Properties:
+      RuleSetName: MyRuleSet
+  MySESRule:
+    Type: 'AWS::SES::ReceiptRule'
+    Properties:
+      RuleSetName: !Ref 'MySESRuleSet'
+      Rule:
+        Name: MyRule
+        Recipients:
+          - example.com
+        Actions:
+          - S3Action:
+              BucketName: !Ref 'MyBucket'
+              ObjectKeyPrefix: emails/
+              KmsKeyArn: !GetAtt 'MyKey.Arn'
+        Enabled: true
+        TlsPolicy: Require
+        ScanEnabled: true

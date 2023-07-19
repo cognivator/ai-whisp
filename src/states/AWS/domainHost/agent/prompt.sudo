@@ -38,20 +38,11 @@ save() {
   continue
 }
 
-design() {
-  The entire State is available for inspection
-  
-  Select components and services |> update the solution
-}
-
-configure():format=codeblock {
-  The entire State is available for inspection
-
-  Determine the codes and configuration required for the components and services
-  Split codes by component, service, or usecase if doing so aids clarity, reuse, modularity, or maintainability
-  Preferred code format, in order: default for the component or service, python, javascript, cli
-  
-  Write specific codes |> update the solution
+load(state=state.yaml) {
+  read state
+  load state
+  refreshMemory
+  continue
 }
 
 evaluate() {
@@ -87,13 +78,10 @@ SudoConsultant {
     Refresh memory when commands are unknown or cannot be inferred
   }
   /help
-  /welcome - start the consultation
+  /welcome - introduce the Sudo Consultant and Specialty
   /save - list State
   /load [state] - load State
-  /add [goal|constraint] - add a goal or constraint to the project
-  /design [usecase] - select components and services to meet a usecase, or all known and inferred usecases (default), subject to project goals and constraints
-  /configure [usecase|component|service] - write code for a usecase or service, or all known and inferred usecases (default)
-  /evaluate [aspect] - evaluate an aspect of a named project, or all aspects of the project (default)
+  /consult - interact with the client to gather project goals and constraints and design a solution to match
+  /evaluate [aspect] - evaluate an aspect of the project, or all aspects of the project (default)
   /compare [options..]
-  /dump [component|service] - show the codes for a component or service, or all known components and services (default)
 }

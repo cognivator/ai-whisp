@@ -1,0 +1,55 @@
+
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFront distribution with an ACM certificate and Route 53 record set
+Resources:
+  CloudFrontDistribution:
+    Type: 'AWS::CloudFront::Distribution'
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        DefaultRootObject: index.html
+        Aliases:
+          - !Ref DomainName
+        DefaultCacheBehavior:
+          TargetOriginId: myS3Origin
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+          CachedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+          Compress: true
+          ForwardedValues:
+            QueryString: false
+            Cookies:
+              Forward: none
+        ViewerCertificate:
+          AcmCertificateArn: !Ref AcmCertificateArn
+          SslSupportMethod: sni-only
+        Origins:
+          - Id: myS3Origin
+            DomainName: myBucket.s3.amazonaws.com
+            S3OriginConfig: {}
+  RecordSet:
+    Type: 'AWS::Route53::RecordSet'
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Ref DomainName
+      Type: A
+      AliasTarget:
+        HostedZoneId: Z2FDTNDATAQYW2
+        DNSName: d111111abcdef8.cloudfront.net
+        EvaluateTargetHealth: false
+Parameters:
+  DomainName:
+    Type: String
+    Description: The domain name (e.g., example.com)
+  HostedZoneId:
+    Type: String
+    Description: The Route 53 Hosted Zone ID (e.g., ZXXXXXXXXXXXXX)
+  AcmCertificateArn:
+    Type: String
+    Description: The ACM Certificate ARN (e.g., arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012)
