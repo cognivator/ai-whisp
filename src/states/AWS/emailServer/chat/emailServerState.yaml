@@ -1,0 +1,28 @@
+State:
+  project:
+    name: Email Server Deployment
+    goals: 
+      - Deploy an Email Server
+    constraints:
+      - Support Gmail as the primary email client that sends and receives email.
+      - Support up to 5 domain names.
+      - Support up to 10 addresses per domain.
+      - Control spam.
+      - Support message encryption at rest and in transit.
+      - Manage addresses (add, remove, etc.) using admin processes without requiring redeployment, if possible.
+    services:
+      - AmazonSES: Email sending and receiving
+      - AWSRoute53: DNS management
+      - AWSIAM: Manage addresses and admin processes
+      - AWSKMS: Encrypt data at rest and in transit
+      - AmazonS3: Store and retrieve mail data
+      - AWSLambda: Automate email processing and address management
+      - AmazonWorkMail: Managed email solution (optional)
+    codes:
+      # Replace with actual codes if necessary
+      AmazonSES: "aws ses verify-email-identity --email-address user@domain.com"
+      AWSRoute53: "aws route53 create-hosted-zone --name domain.com --caller-reference 2023-07-09"
+      AWSIAM: "aws iam create-policy --policy-name MySamplePolicy --policy-document file://mypolicy.json"
+      AWSKMS: "aws kms create-key --description \"Key for encrypting emails\""
+      AmazonS3: "aws s3api create-bucket --bucket my-email-bucket --region us-west-2"
+      AWSLambda: "aws lambda create-function --function-name my-function --zip-file fileb://my-function.zip --handler index.handler --runtime nodejs12.x --role arn:aws:iam::123456789012:role/my-iam-role"

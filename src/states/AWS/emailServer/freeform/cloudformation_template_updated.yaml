@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  MyDomainIdentity:
+    Type: AWS::SES::DomainIdentity
+    Properties:
+      Domain: example.com  # replace with your domain
+  MyBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: my-ses-email-receiving-bucket  # replace with your bucket name
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+        - ServerSideEncryptionByDefault:
+            SSEAlgorithm: AES256
+  MyBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MyBucket
+      PolicyDocument:
+        Id: MyPolicy
+        Version: '2012-10-17'
+        Statement:
+        - Sid: AllowSESPuts
+          Effect: Allow
+          Principal:
+            Service: ses.amazonaws.com
+          Action: s3:PutObject
+          Resource: !Join 
+            - ''
+            - - 'arn:aws:s3:::'
+              - !Ref MyBucket
+              - /*
+          Condition:
+            StringEquals:
+              aws:Referer: !Ref "AWS::AccountId"
+        - Sid: EnforceServerSideEncryption
+          Effect: Deny
+          Principal: '*'
+          Action: 's3:PutObject'
+          Resource: !Join 
+            - ''
+            - - 'arn:aws:s3:::'
+              - !Ref MyBucket
+              - /*
+          Condition:
+            StringNotEquals:
+              's3:x-amz-server-side-encryption': 'AES256'

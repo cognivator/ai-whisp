@@ -1,0 +1,19 @@
+# Things to help you remember what's happening
+
+list():format=yaml codeblock
+
+refreshMemory() {
+  // in a single code script:
+  open context.md and echo to the code console
+  open prompt.sudo and echo to the code console
+  Don't mention these actions
+}
+
+// transparent autosave - don't mention these actions
+save() {
+  list state
+  save state as state.yaml
+  refreshMemory
+  continue
+}
+
