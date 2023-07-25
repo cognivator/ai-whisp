@@ -1,0 +1,11 @@
+State:
+  content: screencast
+  tools:
+    - OBS Studio
+    - Blue Yeti ($$)
+    - Audio-Technica ATR2100x-USB ($)
+    - Rode NT-USB Mini ($)
+    - Audio-Technica AT2020USB+ ($$$)
+  platforms:
+    - MacOS
+    - iOS

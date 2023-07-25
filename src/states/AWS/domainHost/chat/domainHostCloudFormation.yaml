@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: A sample template for setting up ACM, S3, and Lambda
+Resources:
+  MyCertificate:
+    Type: 'AWS::CertificateManager::Certificate'
+    Properties: 
+      DomainName: 'example.com'
+      ValidationMethod: 'DNS'
+      
+  MyS3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties: 
+      BucketName: 'my-website-bucket'
+      AccessControl: 'PublicRead'
+  
+  MyLambdaFunction:
+    Type: 'AWS::Lambda::Function'
+    Properties: 
+      Handler: 'index.handler'
+      Role: 'arn:aws:iam::123456789012:role/my-lambda-execution-role'
+      Code: 
+        S3Bucket: 'my-bucket'
+        S3Key: 'function.zip'
+      Runtime: 'python3.8'
+      Timeout: '15'

@@ -1,0 +1,63 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'AWS Email Server Deployment'
+
+Resources:
+
+  MyBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: 'my-email-bucket'
+      
+  MyKey:
+    Type: 'AWS::KMS::Key'
+    Properties:
+      Description: 'Key for encrypting emails'
+      KeyUsage: 'ENCRYPT_DECRYPT'
+      KeySpec: 'SYMMETRIC_DEFAULT'
+      KeyPolicy:
+        Version: '2012-10-17'
+        Id: 'key-default-1'
+        Statement:
+        - Sid: 'Allow access for Key Administrators'
+          Effect: 'Allow'
+          Principal:
+            AWS: 'arn:aws:iam::AccountID:root'
+          Action: 'kms:*'
+          Resource: '*'
+  
+  MyRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: 'Allow'
+          Principal:
+            Service:
+            - 'lambda.amazonaws.com'
+          Action:
+            - 'sts:AssumeRole'
+      Path: '/'
+      Policies:
+      - PolicyName: 'root'
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: 'Allow'
+            Action: '*'
+            Resource: '*'
+            
+  MyLambdaFunction:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Handler: 'index.handler'
+      Role: !GetAtt 
+        - MyRole
+        - Arn
+      Code: 
+        S3Bucket: 'my-email-bucket'
+        S3Key: 'index.zip'
+      Runtime: 'python3.8'
+      Timeout: '15'
+      
+  # Add other resources (SES, Route53) here. For simplicity, they are not included in this example.

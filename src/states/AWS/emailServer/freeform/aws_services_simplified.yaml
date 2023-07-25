@@ -1,0 +1,21 @@
+S3:
+  description: Amazon Simple Storage Service (S3) is an object storage service that
+    offers industry-leading scalability, data availability, security, and performance.
+    It can be used to store incoming emails when set up with Amazon SES.
+SES:
+  description: Amazon Simple Email Service (SES) is a scalable and cost-effective
+    email sending service that can handle the entire email sending and receiving process.
+    It also provides features to help protect your reputation as an email sender.
+  usage:
+    email_client_configuration: In your email client's settings, use the SMTP server
+      name, port, and the credentials you generated.
+    setup_domain: Verify your domain with Amazon SES. This requires adding some DNS
+      records for your domain in your DNS provider's console.
+    setup_email_receiving: Amazon SES can receive incoming email on your behalf and
+      deliver it to an Amazon S3 bucket, call a Lambda function, or publish notifications
+      to Amazon SNS.
+    setup_email_sending: Request that Amazon remove the sandbox limitations on your
+      account so you can send email to any address. While in the sandbox, you can
+      only send to verified addresses.
+    smtp_settings: Amazon SES provides SMTP interfaces for you to send mail. Create
+      SMTP credentials which you can then use to configure your email client.

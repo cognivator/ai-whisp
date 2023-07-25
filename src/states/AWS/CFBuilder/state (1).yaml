@@ -1,0 +1,30 @@
+project:
+  constraints:
+  - Prefer python or javascript, whichever is most expressive for the task
+  - include appropriate error handling and reporting
+  goals: Use AWS Lambda function(s) to create CloudFormation stacks from a CloudFormation
+    template
+  name: CloudFormation Stack Builder
+solution:
+  codes: "\nimport boto3\nimport logging\n\n# Initialize logger\nlogger = logging.getLogger()\n\
+    logger.setLevel(logging.INFO)\n\ndef lambda_handler(event, context):\n    # Initialize\
+    \ the CloudFormation client\n    cf = boto3.client('cloudformation')\n    \n \
+    \   stack_name = event['stack_name']\n    template_body = event['template_body']\n\
+    \    \n    try:\n        # Create the stack\n        response = cf.create_stack(\n\
+    \            StackName=stack_name,\n            TemplateBody=template_body,\n\
+    \            Capabilities=[\n                'CAPABILITY_IAM',    # Add these\
+    \ capabilities if your template creates IAM resources\n                'CAPABILITY_NAMED_IAM',\n\
+    \            ]\n        )\n        logger.info(f'Successfully created stack {stack_name}')\n\
+    \        return response\n    except Exception as e:\n        # Log the error\
+    \ and rethrow\n        logger.error(f'Failed to create stack {stack_name}: {e}')\n\
+    \        raise e\n"
+  components:
+  - Python function(s)
+  - IAM Role
+  - Error handling
+  - Logging
+  services:
+  - AWS Lambda
+  - AWS CloudFormation
+  - AWS Identity and Access Management (IAM)
+  - AWS CloudWatch
