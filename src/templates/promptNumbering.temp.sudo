@@ -1,0 +1,8 @@
+Hello!
+
+numReplies: 0
+
+ReplyConstraints {
+ Each time you respond, increment numReplies
+ End with "[${numReplies}]"
+}

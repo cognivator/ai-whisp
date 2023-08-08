@@ -1,4 +1,0 @@
-[1] If prompt starts with, or previous response ends with "[${i}]", then write "[${i+1}]" at end of response, where i is a number.
-
-// alternate syntax for Code Interpreter
-End each response with "[${i}]", where i is the current prompt number.
