@@ -1,0 +1,132 @@
+# Authors and Contributions
+# Date: 2023-08-14 14:25:59
+# -----------------------------------
+# Steve Henty - DevOps, AIWhisperer
+# ChatGPT-4 - AWS Solutions Architect
+
+Parameters:
+  AlarmThreshold_Route53_QueryVolume:
+    Type: Number
+    Default: 1000
+    Description: "Threshold for CloudWatch Alarm on Route 53 query volume."
+  AlarmActions_Route53_QueryVolume:
+    Type: CommaDelimitedList
+    Description: "List of actions to take when the CloudWatch alarm is triggered."
+  EnableCloudTrailLogging:
+    Type: String
+    AllowedValues:
+      - 'true'
+      - 'false'
+    Default: 'true'
+    Description: "Enable or disable CloudTrail logging for Route 53 and related services."
+  CloudTrailBucketName:
+    Type: String
+    Description: "Name of the S3 bucket for storing CloudTrail logs."
+  WAFScope:
+    Type: String
+    AllowedValues:
+      - 'REGIONAL'
+      - 'CLOUDFRONT'
+    Default: 'REGIONAL'
+    Description: "Scope of the WAF WebACL, either REGIONAL for regional resources or CLOUDFRONT for CloudFront distributions."
+  IAMUserName:
+    Type: String
+    Default: 'DomainHostUser'
+    Description: "DomainHost IAM user name."
+  DomainName:
+    Type: String
+    Default: 'hentyheuristics.com'
+    Description: "Domain name for Route 53 and certificate."
+  SubdomainName:
+    Type: String
+    Default: 'subdomain.example.com'
+    Description: "Subdomain name for DNS records."
+  IPAddress:
+    Type: String
+    Default: '192.168.1.1'
+    Description: "Domain IP address for DNS records."
+
+Resources:
+  # IAM User
+  MyIAMUser:
+    Type: 'AWS::IAM::User'
+    Properties:
+      UserName: !Ref IAMUserName
+
+  # IAM Policy for the user
+  MyIAMPolicy:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: 'DomainHostPolicy'
+      PolicyDocument:
+        Statement:
+          - Effect: 'Allow'
+            Action:
+              - 'route53:*'
+              - 'acm:*'
+            Resource: '*'
+      Users:
+        - Ref: 'MyIAMUser'
+
+  # Route 53 Hosted Zone
+  MyHostedZone:
+    Type: 'AWS::Route53::HostedZone'
+    Properties:
+      Name: !Ref DomainName # Replace with your domain name
+
+  # SSL/TLS Certificate
+  MyCertificate:
+    Type: 'AWS::CertificateManager::Certificate'
+    Properties:
+      DomainName: !Ref DomainName # Replace with your domain name
+      ValidationMethod: 'DNS'
+
+  # DNS Records (e.g., for subdomains)
+  MyDNSRecord:
+    Type: 'AWS::Route53::RecordSet'
+    Properties:
+      HostedZoneId:
+        Ref: 'MyHostedZone'
+      Name: !Ref SubdomainName # Replace with your subdomain
+      Type: 'A'
+      TTL: '300'
+      ResourceRecords:
+        - !Ref IPAddress # Replace with the actual IP address
+
+  # Amazon CloudWatch Alarm
+  CloudWatchAlarm:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: 'Route53QueryAlarm'
+      MetricName: 'QueryVolume'
+      Namespace: 'AWS/Route53'
+      Statistic: 'Sum'
+      Threshold: !Ref AlarmThreshold_Route53_QueryVolume
+      AlarmActions: !Ref AlarmActions_Route53_QueryVolume
+
+  # AWS CloudTrail
+  CloudTrail:
+    Type: 'AWS::CloudTrail::Trail'
+    Properties:
+      IsLogging: !Ref EnableCloudTrailLogging
+      IsMultiRegionTrail: false
+      IncludeGlobalServiceEvents: false
+      S3BucketName: !Ref CloudTrailBucketName
+      
+  # AWS WAF WebACL
+  WAFWebACL:
+    Type: 'AWS::WAFv2::WebACL'
+    Properties:
+      DefaultAction:
+        Allow: {}
+      Scope: !Ref WAFScope
+      VisibilityConfig:
+        SampledRequestsEnabled: true
+        CloudWatchMetricsEnabled: true
+        MetricName: 'WAFMetric'
+
+  # AWS S3
+  CloudTrailLogBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Ref CloudTrailBucketName
