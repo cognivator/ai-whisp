@@ -12,13 +12,6 @@ Parameters:
   AlarmActions_Route53_QueryVolume:
     Type: CommaDelimitedList
     Description: "List of actions to take when the CloudWatch alarm is triggered."
-  EnableCloudTrailLogging:
-    Type: String
-    AllowedValues:
-      - 'true'
-      - 'false'
-    Default: 'true'
-    Description: "Enable or disable CloudTrail logging for Route 53 and related services."
   CloudTrailBucketName:
     Type: String
     Description: "Name of the S3 bucket for storing CloudTrail logs."
@@ -72,13 +65,13 @@ Resources:
   MyHostedZone:
     Type: 'AWS::Route53::HostedZone'
     Properties:
-      Name: !Ref DomainName # Replace with your domain name
+      Name: !Ref DomainName
 
   # SSL/TLS Certificate
   MyCertificate:
     Type: 'AWS::CertificateManager::Certificate'
     Properties:
-      DomainName: !Ref DomainName # Replace with your domain name
+      DomainName: !Ref DomainName
       ValidationMethod: 'DNS'
 
   # DNS Records (e.g., for subdomains)
@@ -108,22 +101,22 @@ Resources:
   CloudTrail:
     Type: 'AWS::CloudTrail::Trail'
     Properties:
-      IsLogging: !Ref EnableCloudTrailLogging
+      IsLogging: true
       IsMultiRegionTrail: false
       IncludeGlobalServiceEvents: false
       S3BucketName: !Ref CloudTrailBucketName
-      
+
   # AWS WAF WebACL
-  WAFWebACL:
-    Type: 'AWS::WAFv2::WebACL'
-    Properties:
-      DefaultAction:
-        Allow: {}
-      Scope: !Ref WAFScope
-      VisibilityConfig:
-        SampledRequestsEnabled: true
-        CloudWatchMetricsEnabled: true
-        MetricName: 'WAFMetric'
+  # WAFWebACL:
+  #   Type: 'AWS::WAFv2::WebACL'
+  #   Properties:
+  #     DefaultAction:
+  #       Allow: {}
+  #     Scope: !Ref WAFScope
+  #     VisibilityConfig:
+  #       SampledRequestsEnabled: true
+  #       CloudWatchMetricsEnabled: true
+  #       MetricName: 'WAFMetric'
 
   # AWS S3
   CloudTrailLogBucket:
