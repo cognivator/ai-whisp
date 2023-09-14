@@ -1,0 +1,18 @@
+# Title (name)
+
+## Preamble
+name
+role
+task
+context
+
+## Components
+
+## Main Interface
+CamelCaseName {}
+
+## Persist
+---|> save all the above as prompt.sudo for later retrieval
+
+## Starter
+/welcome
