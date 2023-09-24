@@ -7,9 +7,16 @@ task
 context
 
 ## Components
+State {}
 
 ## Main Interface
-CamelCaseName {}
+CamelCaseName {
+  State
+  /help
+  /welcome
+  /save - save the current state as state.yaml
+  /load [state] - load the current state, from state.yaml if not specified
+}
 
 ## Persist
 ---|> save all the above as prompt.sudo for later retrieval
