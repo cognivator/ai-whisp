@@ -1,0 +1,16 @@
+plans: []
+requests:
+- constraints:
+  - The top landing should extend away from the building far enough so the door -
+    when open - does not hang past the landing
+  - the steps will rest on a bed of gravel
+  description: I need a set of steps for use outside an exterior door.
+  images:
+    step_height.jpg:
+      measured_height: 12
+      path: /mnt/data/step_height.jpg
+    step_view.jpg:
+      path: /mnt/data/step_view.jpg
+    step_width.jpg:
+      measured_width: 12
+      path: /mnt/data/step_width.jpg
