@@ -1,0 +1,34 @@
+Given a TypeScript function that embodies functional programming principles such as currying, promise handling, or data transformation, produce a detailed JSDoc comment. The JSDoc should clearly describe the function's purpose, its parameters with their types, and the expected return type. Additionally, emphasize the functional aspects like currying, asynchronous behavior, or transformational nature where applicable.
+
+**Example Usage**
+
+Original TypeScript function:
+
+```typescript
+export const sortSlugs = (sortkey: SlugSortBy = APPSTATE_DEFAULTS.s, reverse: SlugReverseSort = APPSTATE_DEFAULTS.r) =>
+  (slugs : ContentSlug[] = []) => slugs.sort((a, b) =>
+    (cleanSortVal(objGet(sortkey)(a)) < cleanSortVal(objGet(sortkey)(b)) ? -1 : 1) * (!!reverse ? -1 : 1));
+```
+
+Resulting JSDoc comment:
+
+```typescript
+/**
+ * A curried function that first takes an optional sort key and an optional reverse flag,
+ * then returns a function that sorts an optional array of ContentSlug.
+ *
+ * @param {SlugSortBy=} sortkey - Optional key to sort by. Defaults to APPSTATE_DEFAULTS.s.
+ * @param {SlugReverseSort=} reverse - Optional flag to reverse the sort order. Defaults to APPSTATE_DEFAULTS.r.
+ * @returns {(slugs?: ContentSlug[]) => ContentSlug[]} A function that takes an optional array of ContentSlug and returns a sorted array.
+ */
+export const sortSlugs = (sortkey: SlugSortBy = APPSTATE_DEFAULTS.s, reverse: SlugReverseSort = APPSTATE_DEFAULTS.r) =>
+  (slugs : ContentSlug[] = []) => slugs.sort((a, b) =>
+    (cleanSortVal(objGet(sortkey)(a)) < cleanSortVal(objGet(sortkey)(b)) ? -1 : 1) * (!!reverse ? -1 : 1));
+```
+
+**Instructions:**
+Please generate a TypeScript-ready JSDoc comment for the following function(s), focusing on functional programming characteristics and utility."
+
+```typescript
+// TypeScript function code here
+```
