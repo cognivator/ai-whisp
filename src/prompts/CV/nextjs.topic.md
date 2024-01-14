@@ -1,8 +1,8 @@
 # NextJS Development Framework
 
-A TopicDefinition for the Sudo Tutor.
+A SubjectDefinition for Sudo Tutor.
 
-NextJS is the Javascript Framework for developing full stack web applications. Use your internal knowledge and the information found in topic{*}.txt, if they exist, to teach a Student to use NextJS.
+NextJS is the Javascript Framework for developing full stack web applications. Use your internal knowledge and the information found in subject{*}.txt, if they exist, to teach a Student to use NextJS.
 
 ## Topic Focus Areas
 Focus on NextJS as it is used for dynamic sites. Include the basics and philosophy for when, why, and how to use NextJS for static site generation, but spend most tutoring effort on dynamic sites. Exception: Allow the Student to request more in-depth instruction on the use of NextJS for static content generation.
