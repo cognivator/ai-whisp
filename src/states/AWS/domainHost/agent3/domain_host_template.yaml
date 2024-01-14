@@ -1,0 +1,104 @@
+# DomainHost CloudFormation Template
+# This template sets up Route 53, ACM, IAM Role, CloudTrail, and CloudWatch for the DomainHost project
+
+# Authors:
+# - Steve Henty: DevOps, AI Whisperer
+# - ChatGPT-4: AWS Solutions Architect
+# Date: 2023-08-14
+
+Parameters:
+  DomainName:
+    Type: String
+    Description: The domain name for the project
+  SubdomainName:
+    Type: String
+    Description: The subdomain name for the project
+  IPAddress:
+    Type: String
+    Description: The IP address of the subdomain
+
+  IAMRolePrincipalService:
+    Type: String
+    Description: The AWS service that assumes the IAM role (e.g., ec2.amazonaws.com)
+
+  CloudTrailS3BucketName:
+    Type: String
+    Description: The S3 bucket name for storing CloudTrail logs
+
+Resources:
+  # Route 53 Configuration
+  HostedZone:
+    Type: 'AWS::Route53::HostedZone'
+    Properties:
+      Name: !Ref DomainName
+      HostedZoneConfig:
+        Comment: 'Hosted zone for DomainHost project'
+  SubdomainRecord:
+    Type: 'AWS::Route53::RecordSet'
+    Properties:
+      HostedZoneId:
+        Ref: 'HostedZone'
+      Name: !Sub 'subdomain.${DomainName}'
+      Type: 'A'
+      TTL: '300'
+      ResourceRecords:
+        - !Ref IPAddress
+
+  # ACM Configuration
+  Certificate:
+    Type: 'AWS::CertificateManager::Certificate'
+    Properties:
+      DomainName: !Ref DomainName
+      ValidationMethod: 'DNS'
+      SubjectAlternativeNames:
+        - !Sub 'www.${DomainName}'
+
+  DomainHostRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Principal:
+              Service: !Ref IAMRolePrincipalService
+            Action: 'sts:AssumeRole'
+      Path: '/'
+      Policies:
+        - PolicyName: 'Route53AndACMManagement'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action:
+                  - 'route53:*'
+                  - 'acm:*'
+                Resource: '*'
+
+  # CloudWatch Alarms Configuration (Customize as needed)
+  Route53HealthCheckAlarm:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmDescription: 'Route 53 Health Check Alarm'
+      Namespace: 'AWS/Route53'
+      MetricName: '<METRIC_NAME>' # Customize the metric name as per requirements
+      Statistic: 'Average'
+      Period: '300'
+      EvaluationPeriods: '1'
+      Threshold: '1'
+      ComparisonOperator: 'GreaterThanOrEqualToThreshold'
+      AlarmActions: [] # Add SNS Topic ARN for notifications
+
+  # CloudTrail Configuration
+  CloudTrailS3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Ref CloudTrailS3BucketName
+
+  CloudTrailLogging:
+    Type: 'AWS::CloudTrail::Trail'
+    Properties:
+      S3BucketName: !Ref CloudTrailS3BucketName
+      IncludeGlobalServiceEvents: true
+      IsLogging: true
+      IsMultiRegionTrail: true

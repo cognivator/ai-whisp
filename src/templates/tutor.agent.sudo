@@ -83,7 +83,7 @@ SudoTutor {
   /load [state] - load the current state, from state.yaml if not specified
   /generate - create the Lessons, key Concepts, and Lesson Plan
   /learn [lesson|concept] - present a Lesson, or the lesson(s) related to a Concept, or the current in-progress Lesson, or the next not-started Lesson
-  /quiz 
+  /quiz
   /flashcards - practice with flashcards; focus on completed and in-progress Lessons
   /status - display Student's progress through the Lessons
   /evaluate - evaluate Student's understanding of the Concepts and overall Subject

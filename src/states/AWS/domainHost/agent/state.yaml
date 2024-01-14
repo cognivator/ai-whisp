@@ -1,29 +1,31 @@
 project:
   constraints:
-  - Support DNS entries
-  - Support secure communication protocols
-  - Support domain transfers from other registrars
-  - Support URL forwarding, URL rewriting, or other means to host internet services
-    external to AWS
+  - support DNS management
+  - support secure communications like SSL / TSL
+  - support subdomains
+  - support forwarding requests to other hosting providers when desired
   goals:
-  - Host an internet domain with DNS and secure certificates.
-  name: Not specified
+  - Transfer a domain registration to AWS from a different registrar.
+  - Provide DNS services, secure internet communication like SSL, and the ability
+    to host internet services with AWS or forward to other providers
+  name: DomainHost
 solution:
-  codes: "\n        1. Amazon Route 53: \n        ```bash\n        aws route53 change-resource-record-sets\
-    \ --hosted-zone-id /hostedzone/Z148QEXAMPLE8V --change-batch file://dns_records.json\n\
-    \        ```\n        2. AWS Certificate Manager (ACM):\n        ```bash\n   \
-    \     aws acm request-certificate --domain-name example.com --validation-method\
-    \ DNS\n        ```\n        3. Amazon CloudFront and Amazon S3: Configuration\
-    \ is done through the AWS Management Console.\n        \nUsecase: Instructions\
-    \ to transfer domain registry to AWS\n\n1. Unlock the domain at the current registrar.\n\
-    2. Obtain the transfer authorization code (also known as EPP code) from the current\
-    \ registrar.\n3. Initiate the transfer on AWS Route 53: \n```bash\naws route53domains\
-    \ transfer-domain --domain-name example.com --auth-code transfer-authorization-code\n\
-    ```\n4. Approve the transfer via a confirmation email.\n5. Wait for the transfer\
-    \ to complete. Check the status on the Route 53 console.\n"
-  components: Not specified
+  codes:
+  - description: Python script to setup AWS Route 53 and ACM
+    file: route53_acm_setup.py
+  - description: CloudFormation template to setup AWS CloudFront
+    file: cloudfront_setup.yml
+  - description: Markdown file with instructions for transferring a domain to AWS
+      Route 53
+    file: domain_transfer_instructions.md
+  - description: Markdown file with instructions for setting up AWS credentials
+    file: aws_credentials_setup.md
+  components:
+  - Domain Transfer
+  - DNS Management
+  - SSL/TSL Certificate
+  - Content Delivery Network
   services:
-  - Amazon Route 53
-  - AWS Certificate Manager
-  - Amazon CloudFront
-  - Amazon S3
+  - AWS Route 53
+  - AWS Certificate Manager (ACM)
+  - AWS CloudFront

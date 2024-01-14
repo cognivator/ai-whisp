@@ -1,0 +1,28 @@
+project:
+  constraints:
+  - support DNS management
+  - support secure communications like SSL / TSL
+  - support subdomains
+  - support forwarding requests to other hosting providers when desired
+  goals:
+  - Transfer a domain registration to AWS from a different registrar.
+  - Provide DNS services, secure internet communication like SSL, and the ability
+    to host internet services within AWS or forward to other providers
+  name: DomainHost
+solution:
+  components:
+  - Domain registration
+  - DNS management
+  - SSL/TLS configuration
+  - IAM User
+  - IAM Policy
+  - CloudWatch Alarm
+  - CloudTrail Logging
+  - WAF WebACL
+  services:
+  - AWS Route 53
+  - AWS Certificate Manager (ACM)
+  - AWS Identity and Access Management (IAM)
+  - Amazon CloudWatch
+  - AWS CloudTrail
+  - AWS WAF
